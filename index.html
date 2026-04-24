@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>🎬 Sản xuất thủy tinh - Ngân Khánh</title>
+
+<style>
+body {
+    font-family: Arial;
+    text-align: center;
+    background: linear-gradient(to right, #e3f2fd, #fff);
+}
+
+/* slide */
+.slide {
+    display: none;
+    opacity: 0;
+    transition: 0.6s;
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    max-width: 750px;
+    margin: 20px auto;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+.active {
+    display: block;
+    opacity: 1;
+}
+
+/* ảnh */
+img {
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+/* nút */
+button {
+    padding: 12px 25px;
+    font-size: 18px;
+    margin: 10px;
+    border-radius: 30px;
+    border: none;
+    background: #1e88e5;
+    color: white;
+    cursor: pointer;
+}
+
+/* sticker bay */
+.sticker {
+    position: fixed;
+    font-size: 30px;
+    animation: float 4s infinite alternate;
+}
+.s1 { top: 10px; left: 10px; }
+.s2 { top: 10px; right: 10px; }
+.s3 { bottom: 10px; left: 20px; }
+.s4 { bottom: 10px; right: 20px; }
+
+@keyframes float {
+    from { transform: translateY(0); }
+    to { transform: translateY(25px); }
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎬 Quá trình sản xuất thủy tinh 🐧💖</h1>
+
+<!-- STICKER -->
+<div class="sticker s1">🐧</div>
+<div class="sticker s2">🐰</div>
+<div class="sticker s3">💖</div>
+<div class="sticker s4">✨</div>
+
+<!-- SLIDE 1 -->
+<div class="slide active">
+<h2>🎤 Mở đầu</h2>
+<p id="t0">
+Xin chào thầy cô và các bạn.
+Mình là Hoàng Ngân Khánh. Hôm nay mình sẽ trình bày về quá trình sản xuất thủy tinh.
+</p>
+<img src="https://images.pexels.com/photos/3785935/pexels-photo-3785935.jpeg">
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide">
+<h2>📚 Giới thiệu</h2>
+<p id="t1">
+Thủy tinh là chất rắn vô định hình, được tạo từ cát, đá vôi và sô đa.
+Nó trong suốt, bền và được dùng làm kính, chai lọ và đồ gia dụng.
+</p>
+<img src="https://images.pexels.com/photos/1001435/pexels-photo-1001435.jpeg">
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide">
+<h2>🧪 Nguyên liệu</h2>
+<p id="t2">
+Cát thạch anh là thành phần chính.
+Sô đa giúp hạ nhiệt độ nóng chảy.
+Đá vôi giúp tăng độ bền.
+</p>
+<img src="https://images.pexels.com/photos/2562479/pexels-photo-2562479.jpeg">
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide">
+<h2>🔥 Nung chảy</h2>
+<p id="t3">
+Hỗn hợp được nung ở nhiệt độ khoảng 1600 độ C để tạo thành thủy tinh lỏng.
+</p>
+<img src="https://images.pexels.com/photos/1595108/pexels-photo-1595108.jpeg">
+</div>
+
+<!-- SLIDE 5 -->
+<div class="slide">
+<h2>🏭 Tạo hình</h2>
+<p id="t4">
+Thủy tinh lỏng được tạo hình bằng cách thổi, ép hoặc kéo thành sản phẩm.
+</p>
+<img src="https://images.pexels.com/photos/2760243/pexels-photo-2760243.jpeg">
+</div>
+
+<!-- SLIDE 6 -->
+<div class="slide">
+<h2>❄️ Làm nguội</h2>
+<p id="t5">
+Sản phẩm được làm nguội từ từ để tránh bị nứt và tăng độ bền.
+</p>
+<img src="https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg">
+</div>
+
+<!-- SLIDE 7 -->
+<div class="slide">
+<h2>🙏 Kết thúc</h2>
+<p id="t6">
+Cảm ơn thầy cô và các bạn đã lắng nghe!
+</p>
+<img src="https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg">
+</div>
+
+<!-- BUTTON -->
+<button onclick="prev()">⬅️</button>
+<button onclick="next()">➡️</button>
+<button onclick="read()">🔊 Nghe</button>
+
+<script>
+let cur = 0;
+let slides = document.querySelectorAll(".slide");
+
+function showSlide(n) {
+    slides[cur].classList.remove("active");
+    cur = (n + slides.length) % slides.length;
+    slides[cur].classList.add("active");
+}
+
+function next() { showSlide(cur + 1); read(); }
+function prev() { showSlide(cur - 1); read(); }
+
+function read() {
+    let text = document.getElementById("t" + cur).innerText;
+
+    let msg = new SpeechSynthesisUtterance(text);
+    msg.lang = "vi-VN";
+    msg.rate = 0.9;
+
+    let voices = speechSynthesis.getVoices();
+    let vi = voices.find(v => v.lang === "vi-VN");
+    if (vi) msg.voice = vi;
+
+    speechSynthesis.cancel();
+    speechSynthesis.speak(msg);
+}
+
+/* auto chạy như video */
+setInterval(() => {
+    next();
+}, 6000);
+
+window.onload = () => {
+    setTimeout(read, 800);
+};
+</script>
+
+</body>
+</html>
+😏 Nói thật luôn
